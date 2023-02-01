@@ -7,6 +7,7 @@ services:
     environment:
       - ADDR=${ADDR:-0.0.0.0}
       - PORT=${BE_PORT:-8080}
+      - APP_URL=http://${ADDR}:${FE_PORT:-3000}
       - REQUESTMAX=${REQUESTMAX:-9999}
     ports:
       - ${BE_PORT:-8080}:${BE_PORT:-8080}
