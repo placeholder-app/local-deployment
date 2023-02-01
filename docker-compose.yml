@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: app-placeholder-api
+    build: /backend
+    environment:
+      - PORT=8080
+      - REQUESTMAX=9999
+    ports:
+      - 8080:8080
+  frontend:
+    container_name: app-placeholder
+    build: /frontend
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+    depends_on:
+      - backend
