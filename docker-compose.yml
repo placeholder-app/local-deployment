@@ -1,20 +1,23 @@
 version: '3.9'
-
+name: app-placeholder
 services:
   backend:
-    container_name: app-placeholder-api
-    build: /backend
+    container_name: backend-container
+    build: backend
     environment:
-      - PORT=8080
-      - REQUESTMAX=9999
+      - ADDR=${ADDR:-0.0.0.0}
+      - PORT=${BE_PORT:-8080}
+      - REQUESTMAX=${REQUESTMAX:-9999}
     ports:
-      - 8080:8080
+      - ${BE_PORT:-8080}:${BE_PORT:-8080}
   frontend:
-    container_name: app-placeholder
-    build: /frontend
-    ports:
-      - 3000:3000
+    container_name: frontend-container
+    build: frontend
     environment:
-      - PORT=3000
+      - ADDR=${ADDR:-0.0.0.0}
+      - PORT=${FE_PORT:-3000}
+      - API_URL=http://${ADDR}:${BE_PORT:-8080}
+    ports:
+      - ${FE_PORT:-3000}:${FE_PORT:-3000}
     depends_on:
       - backend
